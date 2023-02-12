@@ -16,3 +16,24 @@ main {
   width: 60rem;
   margin: 0 auto;
 }
+.button {
+  background: var(--color-blue) !important;
+  border-radius: 8px;
+  font-size: 1.3rem;
+  line-height: 125%;
+  color: var(--color-white);
+  padding: 1.3rem 1.8rem;
+}
+.btn-reset {
+  background-color: transparent;
+  border: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+  cursor: pointer;
+}
+.btn-reset:active {
+  outline: none;
+}
