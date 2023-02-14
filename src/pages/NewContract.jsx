@@ -9,7 +9,7 @@ const NewContract = () => {
     <>
       <h2 className="title-section">Новый договор</h2>
       <Tabs titleTabsBtns={titleTabsBtns} />
-      <Form typeContract={'own'} />
+      <Form />
     </>
   );
 };

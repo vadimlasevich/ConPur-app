@@ -6,7 +6,7 @@ import { ReactComponent as AddDocument } from '../../assets/images/addDocument.s
 import { ReactComponent as Reports } from '../../assets/images/reports.svg';
 import Support from '../../assets/images/support.png';
 
-import './Navbar.scss';
+import '../../styles/components/Navbar.scss';
 
 const isActiveLink = ({ isActive }) => (isActive ? 'navbar__link_active' : '');
 

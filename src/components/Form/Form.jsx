@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { TypeContractContext } from '../../context/typeContractContext';
+import uuid from 'react-uuid';
 import Input from '../UI/Input';
 import ElemForm from './ElemForm';
-
-import '../../styles/components/Form.scss';
 import Button from '../UI/Button';
 import InputRadio from '../UI/InputRadio';
 
-const Form = ({ typeContract }) => {
+import '../../styles/components/Form.scss';
+
+const Form = () => {
   const [isReferenceZOI, setIsReferenceZOI] = useState(false);
   const [dateConclusion, setDateConclusion] = useState('');
+  const { typeContract } = useContext(TypeContractContext);
 
   const {
     register,

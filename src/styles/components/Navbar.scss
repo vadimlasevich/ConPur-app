@@ -46,8 +46,8 @@
   }
   &__link_active {
     color: var(--color-text) !important;
-    fill: var(--color-blue) !important;
-    stroke: var(--color-blue) !important;
+    fill: var(--color-text) !important;
+    stroke: var(--color-text) !important;
     background: #f2f6fc;
     &:hover {
       opacity: 1 !important;

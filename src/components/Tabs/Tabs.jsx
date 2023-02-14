@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { TypeContractContext } from '../../context/typeContractContext';
 import '../../styles/components/Tabs.scss';
 
 const Tabs = ({ titleTabsBtns }) => {
   const [indexActiveBtn, setIndexActiveBtn] = useState(0);
+  const { handleIndexType } = useContext(TypeContractContext);
 
   return (
     <div className="tabs">
@@ -10,7 +12,10 @@ const Tabs = ({ titleTabsBtns }) => {
         <button
           className={`tabs__btn btn-reset ${indexActiveBtn === index ? 'tabs__btn_active' : ''}`}
           key={index}
-          onClick={() => setIndexActiveBtn(index)}
+          onClick={() => {
+            setIndexActiveBtn(index);
+            handleIndexType(index);
+          }}
         >
           {title}
         </button>
