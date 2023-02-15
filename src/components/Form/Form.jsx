@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { TypeContractContext } from '../../context/typeContractContext';
+import { ContractsContext } from '../../context/contractsContext';
 import uuid from 'react-uuid';
 import Input from '../UI/Input';
 import ElemForm from './ElemForm';
@@ -13,12 +14,14 @@ const Form = () => {
   const [isReferenceZOI, setIsReferenceZOI] = useState(false);
   const [dateConclusion, setDateConclusion] = useState('');
   const { typeContract } = useContext(TypeContractContext);
+  const { getContracts } = useContext(ContractsContext);
 
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
 
   useEffect(() => {
@@ -29,7 +32,13 @@ const Form = () => {
     setDateConclusion(watch('DateConclusion'));
   }, [watch('DateConclusion')]);
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (contract) => {
+    contract.id = uuid();
+    contract.typeContract = typeContract;
+    getContracts(contract);
+
+    reset();
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -43,12 +52,12 @@ const Form = () => {
         <Input register={register} label={'DateConclusion'} type={'date'} errors={errors.DateConclusion} required />
       </ElemForm>
       <ElemForm className="w-33" titleElement={'Предмет договора'} errors={errors.subjectContractText}>
-        <Input register={register} label={'subjectContractText'} type={'text'} errors={errors.subjectContract} required />
+        <Input register={register} label={'subjectContractText'} type={'text'} errors={errors.subjectContractText} required />
       </ElemForm>
       <ElemForm
         className="w-20"
         classNameElemContainer="form__radio-buttons"
-        titleElement={'Предмет договора'}
+        titleElement={'Вид предмета договора'}
         errors={errors.subjectContract}
       >
         <InputRadio register={register} label={'subjectContract'} type={'radio'} value="Услуга" />
