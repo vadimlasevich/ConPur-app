@@ -1,7 +1,3 @@
-.contracts-list {
-  overflow-y: scroll;
-}
-
 .contract {
   padding: 1rem 0;
   &:not(:last-child) {
@@ -26,6 +22,7 @@
     justify-content: center;
     .contract__item {
       display: flex;
+      align-items: center;
       border-right: none;
       &:not(:last-child) {
         margin-bottom: 5px;

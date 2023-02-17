@@ -6,62 +6,32 @@ import ContractItem from './ContractItem';
 const Contract = ({ index, data }) => {
   const [isOpenContract, setIsOpenContract] = useState(false);
 
-  const {
-    DateConclusion,
-    DatePreparation,
-    agreementPrice,
-    contractTimeBy,
-    contractTimeFrom,
-    formContract,
-    manufacturingFirm,
-    producingCountry,
-    subjectContract,
-    typeProcedure,
-    referenceZOI,
-    Number,
-    subjectContractText,
-    Price,
-    nameCompany,
-  } = data;
-
-  const titlesOpenContract = [
-    'Номер договора',
-    'Дата составления',
-    'Дата подписания',
-    'Предмет договора',
-    'Вид предмета договора',
-    'Наименование организации',
-    'Фирма-производитель',
-    'Страна производитель',
-    'Стоимость',
-    'Доп. соглашение',
-    'Форма договора',
-    'Вид процедуры закупки',
-    'Справка ЗОИ',
-    'Срок действия договора',
-  ];
-
-  const titlesHiddenContract = ['Номер договора', 'Стоимость', 'Организация', 'Предмет договора'];
-  const dataHiddenContract = [Number, subjectContractText, Price, nameCompany];
   const dataOpenContract = [
-    Number,
-    subjectContractText,
-    Price,
-    nameCompany,
-    DateConclusion,
-    DatePreparation,
-    agreementPrice,
-    contractTimeBy,
-    contractTimeFrom,
-    formContract,
-    manufacturingFirm,
-    producingCountry,
-    subjectContract,
-    typeProcedure,
-    referenceZOI,
+    ['Номер договора', data.Number],
+    ['Дата составления', data.DatePreparation],
+    ['Дата подписания', data.DateConclusion],
+    ['Предмет договора', data.subjectContractText],
+    ['Вид предмета договора', data.subjectContract],
+    ['Наименование организации', data.nameCompany],
+    ['Фирма-производитель', data.manufacturingFirm],
+    ['Страна производитель', data.producingCountry],
+    ['Стоимость', data.Price],
+    ['Доп. соглашение', data.agreementPrice],
+    ['Форма договора', data.formContract],
+    ['Вид процедуры закупки', data.typeProcedure],
+    ['Справка ЗОИ', data.referenceZOI],
+    ['Срок действия договора с', data.contractTimeFrom],
+    ['Срок действия договора по', data.contractTimeBy],
   ];
 
-  console.log({ ...data });
+  const dataHiddenContract = [
+    ['Номер договора', data.Number],
+    ['Предмет договора', data.subjectContractText],
+    ['Наименование организации', data.nameCompany],
+    ['Стоимость', data.Price],
+  ];
+
+  console.log(dataOpenContract);
 
   return (
     <li className="contract">
@@ -69,10 +39,13 @@ const Contract = ({ index, data }) => {
         <div className="contract__number-sequence">{index + 1}.</div>
         <div className={`contract__content ${isOpenContract ? 'contract__content_open' : ''}`}>
           {!isOpenContract &&
-            dataHiddenContract.map((data, index) => <ContractItem title={titlesHiddenContract[index]} data={data} key={index} />)}
+            dataHiddenContract.map((item, index) => <ContractItem title={item[0]} data={item[1]} key={index} />)}
 
           {isOpenContract &&
-            dataOpenContract.map((data, index) => <ContractItem title={titlesOpenContract[index]} data={data} key={index} />)}
+            dataOpenContract.map((item, index) => {
+              if (item[1] === undefined || item[1] === null) return;
+              return <ContractItem title={item[0]} data={item[1]} key={index} />;
+            })}
 
           <button className="contract__item-button btn-reset" onClick={() => setIsOpenContract((prevState) => !prevState)}>
             {isOpenContract ? 'Скрыть' : 'Посмотреть'}

@@ -9,7 +9,7 @@ const Contracts = () => {
 
   return (
     <>
-      <ul className="contracts-list">
+      <ul>
         {contracts
           .filter((contract) => contract.typeContract === typeContract)
           .map((contract, index) => (
