@@ -17,6 +17,17 @@
     display: flex;
     width: 100%;
   }
+  &__content-button {
+    width: 15rem;
+    margin: 1rem 0 0 2rem;
+    background: var(--color-blue) !important;
+    border-radius: 8px;
+    font-size: 1.3rem;
+    line-height: 125%;
+    color: var(--color-white);
+    padding: 1.3rem 1.8rem;
+    text-align: center;
+  }
   &__content_open {
     flex-direction: column;
     justify-content: center;

@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TypeContractContext } from '../../context/typeContractContext';
 import { ContractsContext } from '../../context/contractsContext';
+import { EditContractContext } from '../../context/editContractContext';
 import uuid from 'react-uuid';
 import Input from '../UI/Input';
 import ElemForm from './ElemForm';
@@ -14,10 +16,12 @@ const Form = () => {
   const [isReferenceZOI, setIsReferenceZOI] = useState(false);
   const [dateConclusion, setDateConclusion] = useState('');
   const { typeContract } = useContext(TypeContractContext);
-  const { getContracts } = useContext(ContractsContext);
+  const { getContracts, handleEditContract } = useContext(ContractsContext);
+  const { editContract, isEdit, setIsEdit } = useContext(EditContractContext);
 
   const {
     register,
+    setValue,
     handleSubmit,
     watch,
     formState: { errors },
@@ -32,7 +36,24 @@ const Form = () => {
     setDateConclusion(watch('DateConclusion'));
   }, [watch('DateConclusion')]);
 
+  useEffect(() => {
+    if (isEdit) {
+      for (let key in editContract) {
+        setValue(key, editContract[key]);
+      }
+    }
+  }, [editContract]);
+
   const onSubmit = (contract) => {
+    if (isEdit) {
+      handleEditContract(contract);
+      reset();
+      setIsEdit(false);
+
+      // return redirect('/contracts');
+      return <Navigate to={'contracts'} />;
+    }
+
     contract.id = uuid();
     contract.typeContract = typeContract;
     getContracts(contract);
@@ -122,11 +143,16 @@ const Form = () => {
         <span>По</span>
         <Input register={register} label={'contractTimeBy'} type={'date'} errors={errors.contractTimeBy} required />
       </ElemForm>
-      <ElemForm className="w-55" />
 
-      <Button className="form__button" type="submit">
-        Создать
-      </Button>
+      <div className="form__buttons">
+        {isEdit && (
+          <Link to={'/contracts'} className="button form__button_grey btn-reset" type="button">
+            Назад
+          </Link>
+        )}
+
+        <Button type="submit">{isEdit ? 'Сохранить изменения' : 'Создать'}</Button>
+      </div>
     </form>
   );
 };

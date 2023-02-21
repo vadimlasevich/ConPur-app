@@ -3,6 +3,9 @@
   justify-content: space-between;
   flex-wrap: wrap;
   row-gap: 2.5rem;
+  &__edit-container {
+    margin-top: 4rem;
+  }
   & label {
     display: flex;
     flex-direction: column;
@@ -39,9 +42,15 @@
     border: 1px solid var(--color-border);
     border-radius: 8px;
   }
-  &__button {
-    display: block;
-    margin-left: auto;
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__button_grey {
+    margin-right: 2rem;
+    background-color: var(--color-button-grey) !important;
+    color: var(--color-button-grey-color) !important;
   }
 }
 .input {

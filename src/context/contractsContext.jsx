@@ -7,7 +7,23 @@ export const ContractsContextProvider = ({ children }) => {
 
   const getContracts = (contract) => setContracts((prevContract) => [...prevContract, contract]);
 
-  console.log(contracts);
+  const handleEditContract = (editContract) => {
+    console.log(editContract);
 
-  return <ContractsContext.Provider value={{ contracts, getContracts }}>{children}</ContractsContext.Provider>;
+    setContracts((prevContract) => {
+      const updateContract = prevContract.map((contract) => {
+        return contract.id === editContract.id ? { ...editContract } : contract;
+      });
+
+      return updateContract;
+    });
+
+    // prevContract.map((contract) => {
+    //   return contract.id === editContract.id ? { ...editContract } : contract;
+    // });
+  };
+
+  return (
+    <ContractsContext.Provider value={{ contracts, getContracts, handleEditContract }}>{children}</ContractsContext.Provider>
+  );
 };
