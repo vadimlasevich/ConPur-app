@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { TypeContractContext } from '../../context/typeContractContext';
 import { ContractsContext } from '../../context/contractsContext';
@@ -18,6 +18,7 @@ const Form = () => {
   const { typeContract } = useContext(TypeContractContext);
   const { getContracts, handleEditContract } = useContext(ContractsContext);
   const { editContract, isEdit, setIsEdit } = useContext(EditContractContext);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -50,8 +51,7 @@ const Form = () => {
       reset();
       setIsEdit(false);
 
-      // return redirect('/contracts');
-      return <Navigate to={'contracts'} />;
+      return navigate('/contracts');
     }
 
     contract.id = uuid();
